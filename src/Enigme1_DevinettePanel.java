@@ -2,13 +2,13 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class Enigme1_DevinettePanel extends JPanel {
 
-    private int attempts = 0;
-    private boolean solved = false;
-    private boolean alarmTriggered = false;
+    private int essai = 0;
+    private boolean resolu = false;
+    private boolean alaremdeclenche = false;
+    private graphjeu parent;
 
     private JLabel riddleLabel;
     private JTextField answerField;
@@ -17,7 +17,10 @@ public class Enigme1_DevinettePanel extends JPanel {
     private String mot;
     private JButton quitButton;
 
-    public Enigme1_DevinettePanel() {
+    // CHANGEZ LE CONSTRUCTEUR POUR ACCEPTER LE PARENT
+    public Enigme1_DevinettePanel(graphjeu parent) {
+        this.parent = parent; // AJOUTEZ CETTE LIGNE
+
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
 
@@ -25,11 +28,7 @@ public class Enigme1_DevinettePanel extends JPanel {
         centerPanel.setLayout(new GridLayout(4, 1, 10, 10));
         centerPanel.setBackground(Color.BLACK);
 
-
-
         String devinette = "Je suis une structure en Java qui ne contient que des méthodes abstraites et aucune implémentation concrète,je peux etre implemnté dans differents classes";
-
-
 
         String riddle = devinette;
 
@@ -49,7 +48,7 @@ public class Enigme1_DevinettePanel extends JPanel {
 
         centerPanel.add(riddleLabel);
         centerPanel.add(answerField);
-        centerPanel.add(submitButton);
+        bottomPanel.add(submitButton);
         centerPanel.add(feedbackLabel);
         bottomPanel.add(quitButton);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -57,47 +56,45 @@ public class Enigme1_DevinettePanel extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
 
         submitButton.addActionListener(e -> Verif());
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(e -> {
+            parent.showScene("scene1");
+        });
         this.mot="interface";
     }
 
     private void Verif() {
-        if (solved || attempts >= 3) return;
+        if (resolu || essai >= 3) return;
 
-        String userInput = answerField.getText();
+        String motTape = answerField.getText();
 
-        if (userInput.equals(this.mot)) {
+        if (motTape.equals(this.mot)) {
             feedbackLabel.setText("Bonne réponse!" +" Gardez ce Mot en tête : " + this.mot);
             feedbackLabel.setForeground(Color.GREEN);
-            solved = true;
+            resolu = true;
 
 
-
-
-            // Ferme la fenêtre principale
 
         } else {
-            attempts++;
-            feedbackLabel.setText(" Mauvaise réponse. Tentative " + attempts + "/3");
+            essai++;
+            feedbackLabel.setText(" Mauvaise réponse. Tentative " + essai + "/3");
             feedbackLabel.setForeground(Color.RED);
 
-            if (attempts == 3) {
-                JOptionPane.showMessageDialog(this, "🚨 Alerte déclenchée ! Échec.");
+            if (essai == 3) {
+                JOptionPane.showMessageDialog(this, "Alerte déclenchée !");
                 submitButton.setEnabled(false);
             }
         }
     }
 
-    public boolean isSolved() {
-        return solved;
+    public boolean isResolu() {
+        return resolu;
     }
 
     public String getSolution() {
         return this.mot;
     }
 
-    public boolean isAlarmTriggered() {
-        return alarmTriggered;
+    public boolean isAlaremdeclenche() {
+        return alaremdeclenche;
     }
 }
-
