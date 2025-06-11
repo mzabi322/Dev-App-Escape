@@ -58,11 +58,13 @@ public class graphjeu extends JFrame {
         image imageScene = new image(this);
         Enigme1_DevinettePanel devinettePanel = new Enigme1_DevinettePanel(this);
         Enigme2_Serveur Enigme2 = new Enigme2_Serveur();
+        Enigme_finale EnigmeFinale =new Enigme_finale();
 
 
         mainPanel.add(imageScene, "scene1");
         mainPanel.add(devinettePanel, "devinette");
         mainPanel.add(Enigme2,"terminal");
+        mainPanel.add(EnigmeFinale,"testCode");
 
         // Ajouter les composants à la fenêtre
         add(topPanel, BorderLayout.NORTH);
