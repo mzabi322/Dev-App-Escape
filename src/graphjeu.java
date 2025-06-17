@@ -47,17 +47,20 @@ public class graphjeu extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.BLACK);
         topPanel.setPreferredSize(new Dimension(0, 40));
+        ArrierePlanStart menuPanel = new ArrierePlanStart(this);
 
+        mainPanel.add(menuPanel, "menu");
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         rightPanel.setBackground(Color.BLACK);
         rightPanel.add(quitterButton);
 
         topPanel.add(rightPanel, BorderLayout.EAST);
 
-
+        showScene("menu");
+        setVisible(true);
         image imageScene = new image(this);
         Enigme1_DevinettePanel devinettePanel = new Enigme1_DevinettePanel(this);
-        Enigme2_Serveur Enigme2 = new Enigme2_Serveur();
+        Enigme2_Serveur Enigme2 = new Enigme2_Serveur(this);
         Enigme_finale EnigmeFinale =new Enigme_finale();
 
 

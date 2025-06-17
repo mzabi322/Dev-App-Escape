@@ -10,10 +10,10 @@ public class Enigme1_DevinettePanel extends JPanel {
     private boolean alaremdeclenche = false;
     private graphjeu parent;
 
-    private JLabel riddleLabel;
-    private JTextField answerField;
-    private JButton submitButton;
-    private JLabel feedbackLabel;
+    private JLabel DevinetteLabel;
+    private JTextField Repzone;
+    private JButton AcceptButton;
+    private JLabel EssaisLabel;
     private String mot;
     private JButton quitButton;
 
@@ -28,34 +28,34 @@ public class Enigme1_DevinettePanel extends JPanel {
         centerPanel.setLayout(new GridLayout(4, 1, 10, 10));
         centerPanel.setBackground(Color.BLACK);
 
-        String devinette = "Je suis une structure en Java qui ne contient que des méthodes abstraites et aucune implémentation concrète,je peux etre implemnté dans differents classes";
+        String devinette = "Je suis une structure en Java qui ne contient que des " +
+                "méthodes abstraites et aucune implémentation concrète,je peux etre implemnté dans differents classes";
 
-        String riddle = devinette;
 
-        riddleLabel = new JLabel(" "+riddle);
-        riddleLabel.setForeground(Color.GREEN);
-        riddleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        riddleLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        DevinetteLabel = new JLabel(" "+devinette);
+        DevinetteLabel.setForeground(Color.GREEN);
+        DevinetteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        DevinetteLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
 
-        answerField = new JTextField();
+        Repzone = new JTextField();
         quitButton=new JButton("Quitter");
-        submitButton = new JButton("Valider");
-        feedbackLabel = new JLabel("Tentatives : 0/3");
-        feedbackLabel.setForeground(Color.WHITE);
-        feedbackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        AcceptButton = new JButton("Valider");
+        EssaisLabel = new JLabel("Tentatives : 0/3");
+        EssaisLabel.setForeground(Color.WHITE);
+        EssaisLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.DARK_GRAY);
 
-        centerPanel.add(riddleLabel);
-        centerPanel.add(answerField);
-        bottomPanel.add(submitButton);
-        centerPanel.add(feedbackLabel);
+        centerPanel.add(DevinetteLabel);
+        centerPanel.add(Repzone);
+        bottomPanel.add(AcceptButton);
+        centerPanel.add(EssaisLabel);
         bottomPanel.add(quitButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         add(centerPanel, BorderLayout.CENTER);
 
-        submitButton.addActionListener(e -> Verif());
+        AcceptButton.addActionListener(e -> Verif());
         quitButton.addActionListener(e -> {
             parent.showScene("scene1");
         });
@@ -65,23 +65,23 @@ public class Enigme1_DevinettePanel extends JPanel {
     private void Verif() {
         if (resolu || essai >= 3) return;
 
-        String motTape = answerField.getText();
+        String motTape = Repzone.getText();
 
         if (motTape.equals(this.mot)) {
-            feedbackLabel.setText("Bonne réponse!" +" Gardez ce Mot en tête : " + this.mot);
-            feedbackLabel.setForeground(Color.GREEN);
+            EssaisLabel.setText("Bonne réponse!" +" Gardez ce Mot en tête : " + this.mot);
+            EssaisLabel.setForeground(Color.GREEN);
             resolu = true;
 
 
 
         } else {
             essai++;
-            feedbackLabel.setText(" Mauvaise réponse. Tentative " + essai + "/3");
-            feedbackLabel.setForeground(Color.RED);
+            EssaisLabel.setText(" Mauvaise réponse. Tentative " + essai + "/3");
+            EssaisLabel.setForeground(Color.RED);
 
             if (essai == 3) {
                 JOptionPane.showMessageDialog(this, "Alerte déclenchée !");
-                submitButton.setEnabled(false);
+                AcceptButton.setEnabled(false);
             }
         }
     }
