@@ -15,11 +15,11 @@ public class Enigme1_DevinettePanel extends JPanel {
     private JButton AcceptButton;
     private JLabel EssaisLabel;
     private String mot;
-    private JButton quitButton;
+    private JButton quitterButton;
 
-    // CHANGEZ LE CONSTRUCTEUR POUR ACCEPTER LE PARENT
+    
     public Enigme1_DevinettePanel(graphjeu parent) {
-        this.parent = parent; // AJOUTEZ CETTE LIGNE
+        this.parent = parent;
 
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -38,7 +38,7 @@ public class Enigme1_DevinettePanel extends JPanel {
         DevinetteLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         Repzone = new JTextField();
-        quitButton=new JButton("Quitter");
+        quitterButton=new JButton("Quitter");
         AcceptButton = new JButton("Valider");
         EssaisLabel = new JLabel("Tentatives : 0/3");
         EssaisLabel.setForeground(Color.WHITE);
@@ -50,20 +50,19 @@ public class Enigme1_DevinettePanel extends JPanel {
         centerPanel.add(Repzone);
         bottomPanel.add(AcceptButton);
         centerPanel.add(EssaisLabel);
-        bottomPanel.add(quitButton);
+        bottomPanel.add(quitterButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         add(centerPanel, BorderLayout.CENTER);
 
         AcceptButton.addActionListener(e -> Verif());
-        quitButton.addActionListener(e -> {
+        quitterButton.addActionListener(e -> {
             parent.showScene("scene1");
         });
         this.mot="interface";
     }
 
     private void Verif() {
-        if (resolu || essai >= 3) return;
 
         String motTape = Repzone.getText();
 
@@ -79,9 +78,9 @@ public class Enigme1_DevinettePanel extends JPanel {
             EssaisLabel.setText(" Mauvaise réponse. Tentative " + essai + "/3");
             EssaisLabel.setForeground(Color.RED);
 
-            if (essai == 3) {
+            if (essai >= 3) {
                 JOptionPane.showMessageDialog(this, "Alerte déclenchée !");
-                AcceptButton.setEnabled(false);
+                AcceptButton.setEnabled(false);//Désactiver le bouton valider le joueur peux plus valider essais>3
             }
         }
     }

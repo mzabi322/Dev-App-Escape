@@ -6,18 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ArrierePlanStart extends JPanel {
-    private Image backgroundImage;
+    private Image ArrierePlanImage;
     private graphjeu parent;
     private JButton startButton;
 
     public ArrierePlanStart(graphjeu parent) {
         this.parent = parent;
-        setLayout(null); // Layout absolu pour positionner les éléments librement
+        setLayout(null);
 
-        // Charger l'image de fond (vous pouvez changer le chemin)
-        backgroundImage = new ImageIcon("images/Arrierplan.png").getImage();
 
-        // Créer le bouton Start
+        ArrierePlanImage = new ImageIcon("images/Arrierplan.png").getImage();
+
+        // Crée le bouton Start
         startButton = new JButton("START");
         startButton.setFont(new Font("Arial", Font.BOLD, 24));
         startButton.setBackground(new Color(57, 250, 20));
@@ -45,46 +45,38 @@ public class ArrierePlanStart extends JPanel {
         });
 
 
-        startButton.setBounds(100, 100, 200, 60);
+        startButton.setBounds(600, 450 ,200, 60);
         add(startButton);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(ArrierePlanImage, 0, 0, getWidth(), getHeight(), this);
 
-        // Dessiner l'image de fond
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        } else {
-            // Fond par défaut si l'image n'est pas trouvée
-            g.setColor(new Color(20, 20, 40));
-            g.fillRect(0, 0, getWidth(), getHeight());
-        }
 
         // Dessiner le titre du jeu
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Titre principal
+
+      //config texte button
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Orbiter", Font.BOLD, 40));
-        FontMetrics fm = g2d.getFontMetrics();
-        String title = "Bienvenue à notre ESCAPE GAME... :)";
-        int titleX = (getWidth() - fm.stringWidth(title)) / 2;
-        int titleY = getHeight() / 3;
-        g2d.drawString(title, titleX, titleY);
 
-        // Sous-titre
+        String title = "Bienvenue à notre ESCAPE GAME... :)";
+        g2d.drawString(title, 550, 400);
+
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial" , Font.ITALIC, 15));
+        String indice ="Dans ces Deux chambres se trouve 4 énigmes... Bonne chance !!";
+        g2d.drawString(indice,700,450);
+
+        // Txt copyright en bas :)
         g2d.setColor(Color.red);
         g2d.setFont(new Font("Arial", Font.ITALIC, 18));
-        fm = g2d.getFontMetrics();
-        String txt = "©BreakTHELab - MZABI & MHALLA  ";
+        String txt = "© BreakTHELab - MZABI & MHALLA  ";
         g2d.drawString(txt, 30, 1000);
 
-        // Repositionner le bouton au centre
-        int buttonX = (getWidth() - startButton.getWidth()) / 2;
-        int buttonY = getHeight() * 2 / 3;
-        startButton.setBounds(buttonX, buttonY, 200, 60);
     }
 }

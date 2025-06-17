@@ -1,7 +1,7 @@
+// graphjeu.java
 package src;
 import javax.swing.*;
 import java.awt.*;
-
 
 public class graphjeu extends JFrame {
     private CardLayout cardLayout;
@@ -9,17 +9,14 @@ public class graphjeu extends JFrame {
 
     public graphjeu() {
         setTitle("Escape Game");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLocationRelativeTo(null);
 
-        // Layout principal
+
         setLayout(new BorderLayout());
-
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-
 
         JButton quitterButton = new JButton("X");
         quitterButton.setBackground(Color.GRAY);
@@ -47,32 +44,38 @@ public class graphjeu extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.BLACK);
         topPanel.setPreferredSize(new Dimension(0, 40));
-        ArrierePlanStart menuPanel = new ArrierePlanStart(this);
 
-        mainPanel.add(menuPanel, "menu");
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         rightPanel.setBackground(Color.BLACK);
         rightPanel.add(quitterButton);
 
         topPanel.add(rightPanel, BorderLayout.EAST);
 
-        showScene("menu");
-        setVisible(true);
+        // --- Instancier toutes les scènes et énigmes ---
+        ArrierePlanStart menuPanel = new ArrierePlanStart(this);
         image imageScene = new image(this);
+        ArrierePlanScene2 secondScene = new ArrierePlanScene2(this);
         Enigme1_DevinettePanel devinettePanel = new Enigme1_DevinettePanel(this);
         Enigme2_Serveur Enigme2 = new Enigme2_Serveur(this);
-        Enigme_finale EnigmeFinale =new Enigme_finale();
+        Enigme_finale EnigmeFinale = new Enigme_finale();
+        GrilleMorpion Tictactoe = new GrilleMorpion();
+        codeAsci codeAsci = new codeAsci();
 
-
+        // --- Ajouter tous les panels au CardLayout ---
+        mainPanel.add(menuPanel, "menu");
         mainPanel.add(imageScene, "scene1");
+        mainPanel.add(secondScene, "scene2");
         mainPanel.add(devinettePanel, "devinette");
-        mainPanel.add(Enigme2,"terminal");
-        mainPanel.add(EnigmeFinale,"testCode");
+        mainPanel.add(Enigme2, "terminal");
+        mainPanel.add(EnigmeFinale, "testCode");
+        mainPanel.add(Tictactoe,"XO");
+        mainPanel.add(codeAsci,"Asci");
 
         // Ajouter les composants à la fenêtre
         add(topPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);
 
+        showScene("menu");
         setVisible(true);
     }
 
